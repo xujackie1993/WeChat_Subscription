@@ -25,7 +25,7 @@ SECRET_KEY = 'qnif$bpt(*uwq8&*=@c-r6bb!#pdltbyl93zxo*xi1*dbt7e80'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["54.199.211.202"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

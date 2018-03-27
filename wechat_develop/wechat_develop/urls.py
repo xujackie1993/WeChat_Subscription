@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^weixin/', include("wechat.urls"))
+    url(r'', include("wechat.urls"))
 ]
