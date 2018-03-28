@@ -1,6 +1,0 @@
-*.py[cod]
-.gitignore
-*.idea/
-*.xml
-conf.py
-ravenmsg.cfg
