@@ -28,6 +28,9 @@ def weixin():
         fromUser = xml_rec.find('FromUserName').text
         MsgType = xml_rec.find('MsgType').text
         Content = xml_rec.find('Content').text
+        logger.info("POST ToUserName: %s, fromUser: %s, MsgType: %s, Content: %s" %
+                    (ToUserName, fromUser, MsgType, Content))
+
         return ops.reply_msg(MsgType, fromUser, ToUserName, Content)
 
 
