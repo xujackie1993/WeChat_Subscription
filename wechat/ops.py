@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import time
 import hashlib
 from .common import text_str, img_str
 
@@ -17,8 +18,8 @@ def verify_server(signature, timestamp, nonce, echostr, token):
     except Exception as error:
         return error
 
-def reply_muban(type):
+def reply_msg(type, fromuser, tousername, content):
     if type == "text":
-        return text_str
+        return text_str % (fromuser, tousername, int(time.time()), content)
     elif type == "image":
-        return img_str
+        return img_str % (fromuser, tousername, int(time.time()), content)

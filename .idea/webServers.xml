@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b036b204-af74-4825-a063-3633d0379ee1" name="AWS" url="http://54.199.211.202">
+        <fileTransfer host="54.199.211.202" port="22" privateKey="D:\XU-ZJ\xzj_new" rootFolder="/home/ubuntu/code/WeChat_Subscription" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

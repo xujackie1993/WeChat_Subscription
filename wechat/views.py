@@ -2,14 +2,15 @@
 import json
 import logging
 from utils.api import APIResult, api_wrap
-from flask import Blueprint, jsonify, abort, make_response, request
-from time import time
+from flask import Blueprint, request
 import xml.etree.ElementTree as et
 from . import ops
 
+logger = logging.getLogger(__name__)
+
 weixin_api = Blueprint("weixin", __name__)
 
-@weixin_api.route('/', methods=['GET', "POST"])
+@weixin_api.route('/trans', methods=['GET', "POST"])
 def weixin():
     if request.method == "GET":
         signature = request.args.get("signature","")
@@ -22,15 +23,12 @@ def weixin():
         return  ret
     if request.method == "POST":
         xmldata = request.stream.read()
-        print("============")
-        print(xmldata)
         xml_rec = et.fromstring(xmldata)
         ToUserName = xml_rec.find('ToUserName').text
         fromUser = xml_rec.find('FromUserName').text
         MsgType = xml_rec.find('MsgType').text
         Content = xml_rec.find('Content').text
-        MsgId = xml_rec.find('MsgId').text
-        return ops.reply_muban(MsgType) % (fromUser, ToUserName, int(time()), Content)
+        return ops.reply_msg(MsgType, fromUser, ToUserName, Content)
 
 
 # Create your views here.
