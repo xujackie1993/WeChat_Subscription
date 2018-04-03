@@ -3,7 +3,6 @@
 import time
 import hashlib
 import logging
-from .common import text_str, img_str
 
 logger = logging.getLogger(__name__)
 
@@ -20,9 +19,3 @@ def verify_server(signature, timestamp, nonce, echostr, token):
             return ''
     except Exception as error:
         return error
-
-def reply_msg(type, fromuser, tousername, content):
-    if type == "text":
-        return text_str % (fromuser, tousername, int(time.time()), content)
-    elif type == "image":
-        return img_str % (fromuser, tousername, int(time.time()), content)

@@ -2,9 +2,9 @@
 import json
 import logging
 from utils.api import APIResult, api_wrap
-from flask import Blueprint, request
-import xml.etree.ElementTree as et
+from flask import Blueprint, request, make_response
 from . import ops
+from .dispatcher import *
 
 logger = logging.getLogger(__name__)
 
@@ -18,20 +18,15 @@ def weixin():
         nonce = request.args.get("nonce", "")
         echostr = request.args.get("echostr", "")
         token = "hello2018"
-        print(signature, timestamp, nonce, echostr)
+        logger.info("signature: %s, timestamp: %s, nonce: %s, echostr: %s",
+                    signature, timestamp, nonce, echostr)
         ret = ops.verify_server(signature, timestamp, nonce, echostr, token)
         return  ret
     if request.method == "POST":
         xmldata = request.stream.read()
-        xml_rec = et.fromstring(xmldata)
-        ToUserName = xml_rec.find('ToUserName').text
-        fromUser = xml_rec.find('FromUserName').text
-        MsgType = xml_rec.find('MsgType').text
-        Content = xml_rec.find('Content').text
-        logger.info("POST ToUserName: %s, fromUser: %s, MsgType: %s, Content: %s" %
-                    (ToUserName, fromUser, MsgType, Content))
-
-        return ops.reply_msg(MsgType, fromUser, ToUserName, Content)
-
-
-# Create your views here.
+        dispatcher = MsgDispatcher(xmldata)
+        data = dispatcher.dispatch()
+        logger.info("response data: %s", data)
+        response = make_response(data)
+        response.content_type = "application/xml"
+        return response

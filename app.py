@@ -3,6 +3,7 @@
 import flask
 import conf
 import traceback
+import logging
 
 app = flask.Flask("flask-test")
 

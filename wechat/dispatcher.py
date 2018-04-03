@@ -2,7 +2,12 @@
 # -*- coding: utf-8 -*-
 import time
 import json
+import logging
+import traceback
 import xml.etree.ElementTree as ET
+from .tuling import get_turing_response, get_response_by_keyword
+
+logger = logging.getLogger(__name__)
 
 class MsgParser(object):
     """
@@ -101,9 +106,8 @@ class MsgHandler(object):
             #   f.write(response['content'] + '~~' + result)
             #    f.close()
         except Exception as e:
-            with open("./debug.log", 'a') as f:
-               f.write("text handler:"+str(e.message))
-               f.close()
+            logger.error(traceback.format_exc())
+
         return result
 
     def musicHandle(self, title='', description='', url='', hqurl=''):
